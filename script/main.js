@@ -231,6 +231,7 @@ function eventHandler(event){
     document.getElementById('installBtn').removeAttribute('disabled');
 }
 
-function instalar() {
+let installBtn = document.getElementById('installBtn');
+installBtn.addEventListener('click', e => {
     if (beforeInstallEvent) beforeInstallPrompt.prompt();
-}
+});
