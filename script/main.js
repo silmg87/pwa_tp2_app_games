@@ -233,5 +233,5 @@ function eventHandler(event){
 
 let installBtn = document.getElementById('installBtn');
 installBtn.addEventListener('click', e => {
-    if (beforeInstallEvent) beforeInstallPrompt.prompt();
+    if (beforeInstallPrompt) beforeInstallPrompt.prompt();
 });
