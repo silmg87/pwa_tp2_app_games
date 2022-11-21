@@ -12,15 +12,15 @@
     <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-    <div id="loader" class="loader">
+    <!-- <div id="loader" class="loader">
       <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-    </div>
+    </div> -->
   
-    <header>
+    <header id="portada-inicio">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <h1 class="navbar-brand mb-0"><a href="#" class="text">App</a></h1>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="menu">
@@ -39,10 +39,10 @@
             </div>
         </nav>
   
-        <div class="container d-flex flex-column justify-content-center align-items-center buscador">
+        <div id="buscador" class="container d-flex flex-column justify-content-center align-items-center">
           <div class="container text-center titulo">
             <h2>VideoGames</h2>
-            <p>Ingresa el nombre de un juego, conocé más información y agregalo a tu lista de favoritos</p>
+            <p id="p-inicio">Ingresa el nombre de un juego, conocé más información y agregalo a tu lista de favoritos</p>
           </div>
       
           <form class="container mt-3">
@@ -58,7 +58,7 @@
                   </select> -->
               </div>
               <div>
-                <button id="buscar" type="submit" class="btn mt-5 btn-lg">Buscar</button>
+                <button id="buscar" type="submit" class="btn mt-3 btn-lg">Buscar</button>
               </div>
             </div>
           </form>

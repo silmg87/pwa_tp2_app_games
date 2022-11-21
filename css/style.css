@@ -48,9 +48,9 @@ body {
     overflow: hidden;
 }
 
-header {
+#portada-inicio {
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     background: var(--bg-gradient-portada), url(../image/portada.jpg); 
     background-repeat: no-repeat;
     background-position: center center;
@@ -66,8 +66,8 @@ header p {
     font-size: 1.2em;
 }
 
-.buscador {
-  height: calc(70vh - 60px);
+#buscador {
+    height: 50%;
 }
 
 .card {
@@ -170,7 +170,7 @@ input {
     text-align: center;
     padding: 1rem;
     border-radius: 0.75rem;
-    width: 80%;
+    width: 100%;
 }
 
 .imgModal {
@@ -274,4 +274,14 @@ input[type="checkbox"]:checked + label {
     box-shadow: 8px 4px 30px 0 rgba(123, 123, 249, 0.2), 0px 6px 30px 0 rgba(123, 123, 249, 0.19);
     border-radius: .75em;
     text-align: center;
+}
+
+/* Secciones */
+#portada-secciones {
+    width: 100%;
+    height: 50vh;
+    background: var(--bg-gradient-portada), url(../image/portada.jpg); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }

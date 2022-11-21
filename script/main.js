@@ -156,6 +156,11 @@ const cardResultado = (json) => {
 
 btn.addEventListener('click', event => {
     event.preventDefault();
+
+    let portada = document.getElementById('portada-inicio');
+    portada.style.height = '50vh';
+    let pInicio = document.getElementById('p-inicio');
+    pInicio.style.display = 'none';
     
         fetch(`https://api.rawg.io/api/games?key=${APIKEY}&search=${inputBusqueda.value}`)
         .then(response=>{
@@ -201,10 +206,32 @@ if (!navigator.onLine) {
 
 
 // Loading
-window.onload = function() {
-    let spinner = document.getElementById('loader');
-    setTimeout(() => {
-        spinner.remove();
-    },
-    1000);    
-}
+// window.onload = function() {
+//     let spinner = document.getElementById('loader');
+//     setTimeout(() => {
+//         spinner.remove();
+//     },
+//     1000);    
+// }
+
+
+// Función para instalar al app
+window.onload = (e) => { 
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+  }
