@@ -216,7 +216,7 @@ if (!navigator.onLine) {
 
 
 // Función para instalar al app
-var beforeInstallPrompt = null;
+let beforeInstallPrompt = null;
 window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
 
 function eventHandler(event){
