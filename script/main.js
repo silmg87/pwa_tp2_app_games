@@ -216,22 +216,21 @@ if (!navigator.onLine) {
 
 
 // Función para instalar al app
-window.onload = (e) => { 
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-    });
+var beforeInstallPrompt = null;
+window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
 
-    deferredPrompt.prompt();
+function eventHandler(event){
+    beforeInstallPrompt = event;        
+}
+function errorHandler(e){
+    console.log('error: ' + e);
+}
 
-    deferredPrompt.userChoice
-      .then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-        deferredPrompt = null;
-      });
-  }
+function eventHandler(event){
+    beforeInstallPrompt = event;
+    document.getElementById('installBtn').removeAttribute('disabled');
+}
+
+function instalar() {
+    if (beforeInstallEvent) beforeInstallPrompt.prompt();
+}
