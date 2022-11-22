@@ -260,25 +260,25 @@ if (!navigator.onLine) {
 // });
 
 
-// let beforeInstallPrompt = null;
-// window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
+let beforeInstallPrompt = null;
+window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
 
-// function eventHandler(event){
-//     beforeInstallPrompt = event;        
-// }
+function eventHandler(event){
+    beforeInstallPrompt = event;        
+}
 
-// function errorHandler(event){
-//     console.log('error: ' + event);
-// }
+function errorHandler(event){
+    console.log('error: ' + event);
+}
 
-// let installBtn = document.getElementById('installBtn');
+let installBtn = document.getElementById('installBtn');
 
-// function eventHandler(event){
-//     beforeInstallPrompt = event;
-//     installBtn.style.display = 'block';
-//     installBtn.remove();
+function eventHandler(event){
+    beforeInstallPrompt = event;
+    installBtn.style.display = 'block';
+    installBtn.remove();
 
-// }
+}
 
 // installBtn.addEventListener('click', event => {
 //     if (beforeInstallPrompt) beforeInstallPrompt.prompt();
