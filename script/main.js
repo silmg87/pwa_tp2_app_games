@@ -216,23 +216,23 @@ if (!navigator.onLine) {
 
 
 // Función para instalar al app
-var deferredPrompt;
+// var deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', function (e) {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  showAddToHomeScreen();
-});
+// window.addEventListener('beforeinstallprompt', function (e) {
+//   // Prevent Chrome 67 and earlier from automatically showing the prompt
+//   e.preventDefault();
+//   // Stash the event so it can be triggered later.
+//   deferredPrompt = e;
+//   showAddToHomeScreen();
+// });
    
 
-function showAddToHomeScreen() {
-  var a2hsBtn = document.querySelector(".ad2hs-prompt");
-  a2hsBtn.style.display = "block";
-  a2hsBtn.addEventListener("click", showAddToHomeScreen());
+// function showAddToHomeScreen() {
+//   var a2hsBtn = document.querySelector(".ad2hs-prompt");
+//   a2hsBtn.style.display = "block";
+//   a2hsBtn.addEventListener("click", showAddToHomeScreen());
 
-}
+// }
 
 
 // let installApp;
@@ -260,23 +260,23 @@ function showAddToHomeScreen() {
 // });
 
 
-// let beforeInstallPrompt = null;
-// window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
+let beforeInstallPrompt = null;
+window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
 
-// function eventHandler(event){
-//     beforeInstallPrompt = event;        
-// }
+function eventHandler(event){
+    beforeInstallPrompt = event;        
+}
 
-// function errorHandler(event){
-//     console.log('error: ' + event);
-// }
+function errorHandler(event){
+    console.log('error: ' + event);
+}
 
-// function eventHandler(event){
-//     beforeInstallPrompt = event;
-//     document.getElementById('installBtn').removeAttribute('disabled');
-// }
+function eventHandler(event){
+    beforeInstallPrompt = event;
+    document.getElementById('installBtn').style.display('block');
+}
 
-// let installBtn = document.getElementById('installBtn');
-// installBtn.addEventListener('click', event => {
-//     if (beforeInstallPrompt) beforeInstallPrompt.prompt();
-// });
+let installBtn = document.getElementById('installBtn');
+installBtn.addEventListener('click', event => {
+    if (beforeInstallPrompt) beforeInstallPrompt.prompt();
+});
