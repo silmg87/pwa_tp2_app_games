@@ -222,8 +222,9 @@ window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
 function eventHandler(event){
     beforeInstallPrompt = event;        
 }
-function errorHandler(e){
-    console.log('error: ' + e);
+
+function errorHandler(event){
+    console.log('error: ' + event);
 }
 
 function eventHandler(event){
@@ -232,6 +233,6 @@ function eventHandler(event){
 }
 
 let installBtn = document.getElementById('installBtn');
-installBtn.addEventListener('click', e => {
+installBtn.addEventListener('click', event => {
     if (beforeInstallPrompt) beforeInstallPrompt.prompt();
 });
