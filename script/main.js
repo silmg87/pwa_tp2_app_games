@@ -260,23 +260,35 @@ if (!navigator.onLine) {
 // });
 
 
-let beforeInstallPrompt = null;
-window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
+// let beforeInstallPrompt = null;
+// window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
 
-function eventHandler(event){
-    beforeInstallPrompt = event;        
-}
+// function eventHandler(event){
+//     beforeInstallPrompt = event;        
+// }
 
-function errorHandler(event){
-    console.log('error: ' + event);
-}
+// function errorHandler(event){
+//     console.log('error: ' + event);
+// }
 
-function eventHandler(event){
-    beforeInstallPrompt = event;
-    document.getElementById('installBtn').style.display = 'block';
-}
+// let installBtn = document.getElementById('installBtn');
 
-let installBtn = document.getElementById('installBtn');
-installBtn.addEventListener('click', event => {
-    if (beforeInstallPrompt) beforeInstallPrompt.prompt();
-});
+// function eventHandler(event){
+//     beforeInstallPrompt = event;
+//     installBtn.style.display = 'block';
+//     installBtn.remove();
+
+// }
+
+// installBtn.addEventListener('click', event => {
+//     if (beforeInstallPrompt) beforeInstallPrompt.prompt();
+// });
+
+
+window.addEventListener("beforeinstallprompt", (e) => {
+    // log the platforms provided as options in an install prompt
+    console.log(e.platforms); // e.g., ["web", "android", "windows"]
+    e.userChoice.then((choiceResult) => {
+      console.log(choiceResult.outcome); // either "accepted" or "dismissed"
+    }, handleError);
+  });
