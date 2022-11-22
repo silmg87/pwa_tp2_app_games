@@ -216,23 +216,67 @@ if (!navigator.onLine) {
 
 
 // Función para instalar al app
-let beforeInstallPrompt = null;
-window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
+var deferredPrompt;
 
-function eventHandler(event){
-    beforeInstallPrompt = event;        
-}
-
-function errorHandler(event){
-    console.log('error: ' + event);
-}
-
-function eventHandler(event){
-    beforeInstallPrompt = event;
-    document.getElementById('installBtn').removeAttribute('disabled');
-}
-
-let installBtn = document.getElementById('installBtn');
-installBtn.addEventListener('click', event => {
-    if (beforeInstallPrompt) beforeInstallPrompt.prompt();
+window.addEventListener('beforeinstallprompt', function (e) {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  showAddToHomeScreen();
 });
+   
+
+function showAddToHomeScreen() {
+  var a2hsBtn = document.querySelector(".ad2hs-prompt");
+  a2hsBtn.style.display = "block";
+  a2hsBtn.addEventListener("click", addToHomeScreen);
+
+}
+
+
+// let installApp;
+
+// window.addEventListener('beforeinstallprompt', (e) => {
+//   e.preventDefault();
+//   installApp = e;
+//   showInstallPromotion();
+//   console.log('Activación del evento beforeinstallprompt');
+// });
+
+// let installBtn = document.getElementById('installBtn');
+// installBtn.addEventListener('click', async () => {
+//     //hideInstallPromotion();
+//     installApp.prompt();
+//     const { outcome } = await installApp.userChoice;
+//     console.log(`User response to the install prompt: ${outcome}`);
+//     installApp = null;
+//   });
+
+// window.addEventListener('appinstalled', () => {
+//     //hideInstallPromotion();
+//     installApp = null;
+//     console.log('PWA fue instalada exitosamente');
+// });
+
+
+// let beforeInstallPrompt = null;
+// window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
+
+// function eventHandler(event){
+//     beforeInstallPrompt = event;        
+// }
+
+// function errorHandler(event){
+//     console.log('error: ' + event);
+// }
+
+// function eventHandler(event){
+//     beforeInstallPrompt = event;
+//     document.getElementById('installBtn').removeAttribute('disabled');
+// }
+
+// let installBtn = document.getElementById('installBtn');
+// installBtn.addEventListener('click', event => {
+//     if (beforeInstallPrompt) beforeInstallPrompt.prompt();
+// });
