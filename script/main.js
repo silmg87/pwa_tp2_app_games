@@ -290,5 +290,8 @@ window.addEventListener("beforeinstallprompt", (e) => {
     console.log(e.platforms); // e.g., ["web", "android", "windows"]
     e.userChoice.then((choiceResult) => {
       console.log(choiceResult.outcome); // either "accepted" or "dismissed"
-    }, handleError);
+    }, handleError());
+    function handleError(event){
+        console.log('error: ' + event);
+    }
   });
