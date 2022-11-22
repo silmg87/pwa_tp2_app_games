@@ -273,7 +273,7 @@ function errorHandler(event){
 
 function eventHandler(event){
     beforeInstallPrompt = event;
-    document.getElementById('installBtn').style.display('block');
+    document.getElementById('installBtn').style.display = 'block';
 }
 
 let installBtn = document.getElementById('installBtn');
