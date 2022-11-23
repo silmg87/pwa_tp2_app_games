@@ -11,7 +11,7 @@
     --color-violeta: #e81aff;
 }
 
-
+/* RESET */
 * {
     margin: 0;
     padding: 0;
@@ -34,6 +34,7 @@ body {
     background-color: var(--bg-web);
     font-family: 'Poppins', sans-serif;
     color: white;
+    line-height: 1.5em;
 }
 
 /* LOGO */
@@ -66,6 +67,7 @@ header p {
     font-size: 1.2em;
 }
 
+.buscador-secciones,
 #buscador {
     height: 50%;
 }
@@ -90,7 +92,14 @@ header p {
     max-height: 100%;
 }
 
+/* .caja-juego {
+    max-width: 18rem !important;
+    min-height: 270px !important;
+} */
+
 .imgResultado {
+    max-width: 295px !important;
+    min-height: 165px !important;
     border-radius: 0.75em 0.75em 0 0;
 }
 
@@ -109,9 +118,6 @@ input {
     margin-right: 8px;
 }
 
-/* .form-select {
-    width: 30%;
-} */
 
 /* Ventana Modal */
 .modal {
@@ -155,11 +161,6 @@ input {
     text-decoration: none;
 }
 
-/* .modal a.cerrar:hover {
-    background-color: #097d91;
-    color: rgba(255, 255, 255, 0.9);
-} */
-
 .divModal {
     background-color: var(--bg-web);
     z-index: 3;
@@ -185,7 +186,47 @@ input {
     color: var(--color-violeta);
 }
 
-.info 
+.divInfo,
+.divInfo ul,
+.divInfo ul li {
+    display: flex;
+    flex-direction: column;
+}
+
+.divInfo {
+    /* border: 1px solid var(--color-violeta); */
+    box-shadow: 8px 4px 30px 0 rgba(123, 123, 249, 0.2), 0px 6px 30px 0 rgba(123, 123, 249, 0.19);
+    padding: 1em;
+    border-radius: .75em;
+    width: 90%;
+}
+
+.divInfo ul {
+    margin: 0;
+}
+
+.divInfo ul li {
+    margin: 1em 0;
+}
+
+.divInfo ul li span:nth-child(1) {
+    color: var(--btn-color);
+}
+
+.divPlataformas {
+    margin-bottom: 1em;
+}
+
+.divPlataformas p {
+    
+    color: var(--btn-color);
+}
+
+.divPlataformas span {
+    color: var(--color-violeta);
+    margin: 0 3px;
+}
+
 
 
 /* Loading */
@@ -289,4 +330,10 @@ input[type="checkbox"]:checked + label {
 /* Botón App Install */
 #installBtn {
     display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .divModal {
+        max-width: 650px;
+    }
 }

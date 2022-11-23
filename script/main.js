@@ -5,31 +5,59 @@ const btn = document.getElementById('buscar');
 const inputBusqueda = document.getElementById('inputBusqueda');
 
 
+// LOADING
+// window.onload = function() {
+//     let spinner = document.getElementById('loader');
+//     setTimeout(() => {
+//         spinner.remove();
+//     },
+//     1000);    
+// }
+
+
+// VALIDACION  
+const validacion = () => {
+    if (!inputBusqueda) {
+        let divError = document.createElement('div');
+        divError.className = 'error';
+        let body = document.querySelector('body');
+        body.append(divError);
+        divError.innerHTML = `Oops, ha ocurrido un error!<br/>
+                        Verifique que vaya ingresado correctamente el nombre del juego e intentelo nuevamente.`;
+
+        setTimeout(() => {
+            divError.remove();
+        },
+        5000); 
+    }
+}
+
+
+// FUNCION CONSTRUCTORA DEL RESULTADO DE LA BUSQUEDA
 let divResultado = document.createElement('div');
 divResultado.id = 'resultado';
 
-// FUNCION CARD RESULTADOS
 const cardResultado = (json) => {
     divResultado.innerHTML = '';
     divResultado.className = 'container mt-5 py-5';
 
     let divCard1 = document.createElement('div');
-    divCard1.className = 'row row-cols-1 row-cols-md-3 g-4';
+    divCard1.className = 'd-flex flex-wrap justify-content-center' //row row-cols-1 row-cols-md-3 g-4 align-items-center';
 
     divResultado.append(divCard1); 
     
     for (let juego of json.results) {
         let divCard2 = document.createElement('div');
-        divCard2.className = 'col resultado';
+        divCard2.className = 'resultado';
         divCard1.append(divCard2);
 
         let divCard3 = document.createElement('div');
-        divCard3.className = 'card h-100';
+        divCard3.className = 'card';
         divCard2.append(divCard3);
 
         let img = document.createElement('img');
         img.src = juego.background_image;
-        img.className = 'imgResultado';
+        img.className = 'card-img-top imgResultado';
 
         let divCard4 = document.createElement('div');
         divCard4.className = 'card-body juegos d-flex justify-content-between';
@@ -37,7 +65,7 @@ const cardResultado = (json) => {
         let a = document.createElement('a');
         a.href = 'modalJuego';
 
-        // Ventana Modal
+        // FUNCION CONSTRUCTURA DE LA VENTANA MODAL
         a.addEventListener('click', event => {
             event.preventDefault();
             
@@ -86,27 +114,27 @@ const cardResultado = (json) => {
                     divInfo.className = 'divInfo';
 
                     let ul1 = document.createElement('ul');
-                    ul1.className = 'd-flex flex-row justify-content-between info';
+                    ul1.className = 'd-flex justify-content-between info';
                     let li1 = document.createElement('li');
-                    li1.innerHTML = `<span>Genre:</span> ${juego.genres[0].name}`;
+                    li1.innerHTML = `<span>Genre</span> ${juego.genres[0].name}`;
                     let li2 = document.createElement('li');
-                    li2.innerHTML = `<span>Release date:</span> ${juego.released}`;
+                    li2.innerHTML = `<span>Release date</span> ${juego.released}`;
                     ul1.append(li1, li2);
 
                     let ul2 = document.createElement('ul');
-                    ul2.className = 'd-flex flex-row justify-content-between info';
+                    ul2.className = 'd-flex justify-content-between info';
                     let li3 = document.createElement('li');
-                    li3.innerHTML = `<span>Publisher:</span> ${json.publishers[0].name}`;
+                    li3.innerHTML = `<span>Publisher</span> ${json.publishers[0].name}`;
                     let li4 = document.createElement('li');
-                    li4.innerHTML = `<span>Metascore:</span> <span>${juego.metacritic}</span>`;
+                    li4.innerHTML = `<span>Metascore</span> <span>${juego.metacritic}</span>`;
                     ul2.append(li3, li4);
 
                     let divPlataformas = document.createElement('div');
                     divPlataformas.className = 'divPlataformas';
-                    divPlataformas.innerHTML = 'Platforms: ';
+                    divPlataformas.innerHTML = '<p>Platforms</p';
                     for (let items of json.platforms) {
                         let span = document.createElement('span');
-                        span.innerHTML = `${items.platform.name}, `;  
+                        span.innerHTML = `${items.platform.name} `;  
                         divPlataformas.append(span);                     
                     }
                     
@@ -140,7 +168,12 @@ const cardResultado = (json) => {
         labelFavorito.htmlFor = juego.id;
         let checkFavorito = document.createElement('input');
         checkFavorito.type = 'checkbox';  
-        checkFavorito.id = juego.id;     
+        checkFavorito.id = juego.id;
+        checkFavorito.name = juego.name;
+        checkFavorito.addEventListener('change', e => {
+            estadoFavoritos(e);
+        }) 
+
         divFavorito.append(checkFavorito, labelFavorito);
 
         a.append(h5Titulo);
@@ -153,7 +186,7 @@ const cardResultado = (json) => {
 }
 
 
-
+// EVENTO CLICK DEL BOTON BUSCAR
 btn.addEventListener('click', event => {
     event.preventDefault();
 
@@ -172,26 +205,70 @@ btn.addEventListener('click', event => {
             cardResultado(json);
         })
 
-        // .catch(error=>{ 
-        //     let divError = document.createElement('div');
-        //     divError.className = 'error';
-        //     let body = document.querySelector('body');
-        //     body.append(divError);
-        //     divError.innerHTML = `Oops, ha ocurrido un error!<br/>
-        //                     Verifique que vaya ingresado correctamente el nombre del juego e intentelo nuevamente.`;
+        .catch(error=>{ 
+            let divError = document.createElement('div');
+            divError.className = 'error';
+            let body = document.querySelector('body');
+            body.append(divError);
+            divError.innerHTML = `Oops, ha ocurrido un error!<br/>
+                            Verifique que vaya ingresado correctamente el nombre del juego e intentelo nuevamente.`;
 
-        //     setTimeout(() => {
-        //         divError.remove();
-        //     },
-        //     5000); 
-        //})
+            setTimeout(() => {
+                divError.remove();
+            },
+            5000); 
+        })
         
         inputBusqueda.value = '';
 })
 
 
+// LOCALSTORAGE
+let ids;
+let recuperarLocalStorage;
 
-// Estado: Conexión y desconexión
+const estadoFavoritos = (e) => {
+    let estado = e.target.checked;
+    let id = e.target.id;
+    let juego = e.target.name;
+
+    if (estado === true){
+        if (!localStorage.getItem('favoritos')) {
+            ids = [];
+        } else {
+            ids = JSON.parse(localStorage.favoritos); 
+        }
+        
+        let data = [id, juego];
+        ids.push(data);
+        localStorage.setItem('favoritos', JSON.stringify(ids));
+        recuperarLocalStorage = JSON.parse(localStorage.getItem('favoritos'));
+
+    } else {
+        console.log('nouu');  //eliminarFavoritos(); 
+        // ids = localStorage.getItem('favoritos');
+        // ids = JSON.parse(ids);
+        // if (id in ids) {
+        //     delete ids[id];
+        // }
+        // // ids.splice([id], 1);
+        // // localStorage.setItem('favoritos', JSON.stringify(ids));
+
+        // ids = JSON.stringify(ids);
+        // localStorage.setItem('favoritos', ids);
+
+        // if(JSON.parse(localStorage.getItem('favoritos')).length == 0) {
+        //     localStorage.removeItem("favoritos");
+        // }
+    }
+}
+
+// const mostrarFavoritos = () => {
+//     cardResultado(recuperarLocalStorage = JSON.parse(localStorage.favoritos));
+// }
+
+
+// ONLINE Y OFFLINE APP
 window.addEventListener('offline', event => {
     console.log('Aplicación desconectada', event);
 });
@@ -203,95 +280,3 @@ window.addEventListener('online', event => {
 if (!navigator.onLine) {
     console.log('Aplicación sin conexión al cargar');
 }
-
-
-// Loading
-// window.onload = function() {
-//     let spinner = document.getElementById('loader');
-//     setTimeout(() => {
-//         spinner.remove();
-//     },
-//     1000);    
-// }
-
-
-// Función para instalar al app
-// var deferredPrompt;
-
-// window.addEventListener('beforeinstallprompt', function (e) {
-//   // Prevent Chrome 67 and earlier from automatically showing the prompt
-//   e.preventDefault();
-//   // Stash the event so it can be triggered later.
-//   deferredPrompt = e;
-//   showAddToHomeScreen();
-// });
-   
-
-// function showAddToHomeScreen() {
-//   var a2hsBtn = document.querySelector(".ad2hs-prompt");
-//   a2hsBtn.style.display = "block";
-//   a2hsBtn.addEventListener("click", showAddToHomeScreen());
-
-// }
-
-
-// let installApp;
-
-// window.addEventListener('beforeinstallprompt', (e) => {
-//   e.preventDefault();
-//   installApp = e;
-//   showInstallPromotion();
-//   console.log('Activación del evento beforeinstallprompt');
-// });
-
-// let installBtn = document.getElementById('installBtn');
-// installBtn.addEventListener('click', async () => {
-//     //hideInstallPromotion();
-//     installApp.prompt();
-//     const { outcome } = await installApp.userChoice;
-//     console.log(`User response to the install prompt: ${outcome}`);
-//     installApp = null;
-//   });
-
-// window.addEventListener('appinstalled', () => {
-//     //hideInstallPromotion();
-//     installApp = null;
-//     console.log('PWA fue instalada exitosamente');
-// });
-
-
-let beforeInstallPrompt = null;
-window.addEventListener("beforeinstallprompt", eventHandler, errorHandler);
-
-function eventHandler(event){
-    beforeInstallPrompt = event;        
-}
-
-function errorHandler(event){
-    console.log('error: ' + event);
-}
-
-let installBtn = document.getElementById('installBtn');
-
-function eventHandler(event){
-    beforeInstallPrompt = event;
-    installBtn.style.display = 'block';
-    installBtn.remove();
-
-}
-
-// installBtn.addEventListener('click', event => {
-//     if (beforeInstallPrompt) beforeInstallPrompt.prompt();
-// });
-
-
-// window.addEventListener("beforeinstallprompt", (e) => {
-//     // log the platforms provided as options in an install prompt
-//     console.log(e.platforms); // e.g., ["web", "android", "windows"]
-//     e.userChoice.then((choiceResult) => {
-//       console.log(choiceResult.outcome); // either "accepted" or "dismissed"
-//     }, handleError());
-//     function handleError(event){
-//         console.log('error: ' + event);
-//     }
-//   });
