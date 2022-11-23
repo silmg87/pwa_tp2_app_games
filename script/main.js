@@ -266,13 +266,13 @@ const estadoFavoritos = (e) => {
 
 // ONLINE Y OFFLINE APP
 window.addEventListener('offline', event => {
-    console.log('Aplicación desconectada', event);
+    console.log('Web App sin cconexión', event);
 });
 
 window.addEventListener('online', event => {
-    console.log('Aplicación conectada', event);
+    console.log('Web App conectada', event);
 });
 
 if (!navigator.onLine) {
-    console.log('Aplicación sin conexión al cargar');
+    console.log('Web App sin conexión al cargar');
 }
