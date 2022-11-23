@@ -42,18 +42,19 @@ const cardResultado = (json) => {
     divResultado.className = 'container mt-5 py-5';
 
     let divCard1 = document.createElement('div');
-    divCard1.className = 'd-flex flex-wrap justify-content-center' //row row-cols-1 row-cols-md-3 g-4 align-items-center';
+    divCard1.className = 'd-flex flex-wrap justify-content-center align-items-center';
 
     divResultado.append(divCard1); 
     
     for (let juego of json.results) {
-        let divCard2 = document.createElement('div');
-        divCard2.className = 'resultado';
-        divCard1.append(divCard2);
+        // let divCard2 = document.createElement('div');
+        // divCard2.className = '' resultado';
+        
 
         let divCard3 = document.createElement('div');
-        divCard3.className = 'card';
-        divCard2.append(divCard3);
+        divCard3.className = 'card resultado';
+        //divCard2.append(divCard3);
+        divCard1.append(divCard3);
 
         let img = document.createElement('img');
         img.src = juego.background_image;
