@@ -46,22 +46,17 @@ const cardResultado = (json) => {
 
     divResultado.append(divCard1); 
     
-    for (let juego of json.results) {
-        // let divCard2 = document.createElement('div');
-        // divCard2.className = '' resultado';
-        
-
-        let divCard3 = document.createElement('div');
-        divCard3.className = 'card resultado';
-        //divCard2.append(divCard3);
-        divCard1.append(divCard3);
+    for (let juego of json.results) {      
+        let divCard2 = document.createElement('div');
+        divCard2.className = 'card resultado';
+        divCard1.append(divCard2);
 
         let img = document.createElement('img');
         img.src = juego.background_image;
         img.className = 'card-img-top imgResultado';
 
-        let divCard4 = document.createElement('div');
-        divCard4.className = 'card-body juegos d-flex justify-content-between';
+        let divCard3 = document.createElement('div');
+        divCard3.className = 'card-body juegos d-flex justify-content-between';
 
         let a = document.createElement('a');
         a.href = 'modalJuego';
@@ -178,8 +173,8 @@ const cardResultado = (json) => {
         divFavorito.append(checkFavorito, labelFavorito);
 
         a.append(h5Titulo);
-        divCard4.append(a, divFavorito);
-        divCard3.append(img, divCard4);
+        divCard3.append(a, divFavorito);
+        divCard2.append(img, divCard3);
     }
     
     let main = document.getElementById('main');
