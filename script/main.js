@@ -6,13 +6,13 @@ const inputBusqueda = document.getElementById('inputBusqueda');
 
 
 // LOADING
-// window.onload = function() {
-//     let spinner = document.getElementById('loader');
-//     setTimeout(() => {
-//         spinner.remove();
-//     },
-//     1000);    
-// }
+window.onload = function() {
+    let spinner = document.getElementById('loader');
+    setTimeout(() => {
+        spinner.remove();
+    },
+    2000);    
+}
 
 
 // VALIDACION  
