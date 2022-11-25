@@ -9,12 +9,12 @@ const mostrarFavoritos = () => {
         console.log('No existen favoritos')
 
         let div = document.createElement('div')
-            div.classList = 'text-center w-100'
+            div.classList = 'text-center w-100 mensaje'
             div.style.paddingTop = '20vh'
         let p = document.createElement('p')
             p.innerHTML = `Aun no tienes juegos favoritos, <br> ¿Que esperas para añadir uno?`;
-            p.style.fontSize = '3em'
-            p.style.lineHeight = '1.4em'
+            // p.style.fontSize = '3em'
+            // p.style.lineHeight = '1.4em'
 
         document.querySelector('main').append(div)
         div.append(p)

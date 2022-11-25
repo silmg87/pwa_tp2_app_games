@@ -26,7 +26,7 @@ fetch('https://final-programacion-1.000webhostapp.com/novedades.php')
 const validacion = () => {
     if (!inputBusqueda) {
         let divError = document.createElement('div');
-        divError.className = 'error';
+        divError.className = 'mensaje';
         let body = document.querySelector('body');
         body.append(divError);
         divError.innerHTML = `Oops, ha ocurrido un error!<br/>
@@ -212,7 +212,7 @@ btn.addEventListener('click', event => {
 
     .catch(error=>{ 
         let divError = document.createElement('div');
-        divError.className = 'error';
+        divError.className = 'mensaje';
         let body = document.querySelector('body');
         body.append(divError);
         divError.innerHTML = `Oops, ha ocurrido un error!<br/>
@@ -252,11 +252,13 @@ const estadoFavoritos = (e) => {
     }
 
     if (estado === false) {
-        localStorage.getItem('favoritos')
-        ids = JSON.parse(localStorage.favoritos);
-        let found = ids.find(ids => ids.id == data.id)
-        console.log(found)
-        localStorage.setItem('favoritos', JSON.stringify(ids));
+        let found;
+        let index;
+        let favoritos = JSON.parse(localStorage.favoritos);
+        found = favoritos.find(favorito => favorito.id == data.id);            
+        index = favoritos.indexOf(found);
+        favoritos.splice(index, 1);
+        localStorage.setItem('favoritos', JSON.stringify(favoritos));
     }
 }
 
@@ -279,7 +281,10 @@ const verificarFavoritos = () => {
 window.addEventListener('offline', event => {
     console.log('Web App sin cconexión', event);
     let div = document.getElementById('notificacion')
+    div.className = 'mensaje text-center';
     div.style.display = "block";
+    let box = document.getElementById('fondo-box');
+    box.style.display = "block";
 });
 
 window.addEventListener('online', event => {
