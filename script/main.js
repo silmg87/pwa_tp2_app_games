@@ -22,24 +22,6 @@ fetch('https://final-programacion-1.000webhostapp.com/novedades.php')
 })
 
 
-// VALIDACION  
-const validacion = () => {
-    if (!inputBusqueda) {
-        let divError = document.createElement('div');
-        divError.className = 'mensaje';
-        let body = document.querySelector('body');
-        body.append(divError);
-        divError.innerHTML = `Oops, ha ocurrido un error!<br/>
-                        Verifique que vaya ingresado correctamente el nombre del juego e intentelo nuevamente.`;
-
-        setTimeout(() => {
-            divError.remove();
-        },
-        5000); 
-    }
-}
-
-
 // FUNCION CONSTRUCTORA DEL RESULTADO DE LA BUSQUEDA
 let divResultado = document.createElement('div');
 divResultado.id = 'resultado';
@@ -187,39 +169,55 @@ const cardResultado = (json) => {
     verificarFavoritos();
 }
 
-
 // EVENTO CLICK DEL BOTON BUSCAR
 btn.addEventListener('click', event => {
     event.preventDefault();
 
-    let portada = document.getElementById('portada-inicio');
-    portada.style.height = '50vh';
-    let pInicio = document.getElementById('p-inicio');
-    pInicio.style.display = 'none';
-    
-    fetch(`https://api.rawg.io/api/games?key=${APIKEY}&search=${inputBusqueda.value}`)
-    .then(response=>{
-        return response.json();
-    })
-
-    .then(json=>{
-        console.log(json)
-        cardResultado(json);
-    })
-
-    .catch(error=>{ 
+    if (inputBusqueda.value.length == 0) {
         let divError = document.createElement('div');
         divError.className = 'mensaje';
         let body = document.querySelector('body');
         body.append(divError);
         divError.innerHTML = `Oops, ha ocurrido un error!<br/>
-                        Verifique que vaya ingresado correctamente el nombre del juego e intentelo nuevamente.`;
+                        Debe ingresar un juego para buscar. Intentelo nuevamente.`;
 
         setTimeout(() => {
             divError.remove();
         },
         5000); 
-    })
+    }
+
+    if (inputBusqueda.value.length >= 1) {
+        let portada = document.getElementById('portada-inicio');
+        portada.style.height = '50vh';
+        let pInicio = document.getElementById('p-inicio');
+        pInicio.style.display = 'none';
+        
+        fetch(`https://api.rawg.io/api/games?key=${APIKEY}&search=${inputBusqueda.value}`)
+        .then(response=>{
+            return response.json();
+        })
+    
+        .then(json=>{
+            console.log(json)
+            cardResultado(json);
+        })
+    
+        .catch(error=>{ 
+            let divError = document.createElement('div');
+            divError.className = 'mensaje';
+            let body = document.querySelector('body');
+            body.append(divError);
+            divError.innerHTML = `Oops, ha ocurrido un error!<br/>
+                            Verifique que vaya ingresado correctamente el nombre del juego e intentelo nuevamente.`;
+    
+            setTimeout(() => {
+                divError.remove();
+            },
+            5000); 
+        })
+    }
+
         
     inputBusqueda.value = '';
 })
