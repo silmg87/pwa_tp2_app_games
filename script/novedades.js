@@ -2,7 +2,7 @@ let novedades = JSON.parse(localStorage.novedades)
 
 let sectionNovedades = document.createElement('section');
 sectionNovedades.id = 'novedades';
-sectionNovedades.className = 'd-flex flex-wrap justify-content-center align-items-center';
+sectionNovedades.className = 'd-flex flex-column justify-content-center align-items-center';
 
 let main = document.getElementById('main');
 main.append(sectionNovedades);

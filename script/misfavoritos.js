@@ -25,7 +25,7 @@ const mostrarFavoritos = () => {
 
         let divResultado = document.createElement('div');
         divResultado.id = 'resultado';
-        divResultado.className = 'container mt-5 py-5';
+        divResultado.className = 'd-flex flex-wrap justify-content-center align-items-center'; //'container mt-5 py-5';
         
         let main = document.getElementById('main');
         main.append(divResultado);
@@ -58,6 +58,100 @@ const mostrarFavoritos = () => {
                             let a = document.createElement('a');
                             a.href = 'modalJuego';
 
+                            // FUNCION CONSTRUCTURA DE LA VENTANA MODAL
+                            a.addEventListener('click', event => {
+                                event.preventDefault();
+                                
+                                let id = json.id;
+
+                                fetch(`https://api.rawg.io/api/games/${id}?key=${APIKEY}`)
+                                .then(response=>{
+                                    return response.json();
+                                })
+
+                                .then(json=>{
+                                    console.log(json);
+                                    let modalJuego = document.createElement('div');
+                                    modalJuego.id = 'modalJuego';
+                                    modalJuego.className = 'modal';
+                
+                                    let divModal = document.createElement('div');
+                                    divModal.className = 'divModal';
+                
+                                    // Cierre de la ventana modal
+                                    let cerrarModal = document.createElement('a');
+                                    cerrarModal.href = 'javascript:void(0)';
+                                    cerrarModal.className = 'cerrar';
+                                    cerrarModal.innerHTML = 'x';
+                                    cerrarModal.addEventListener('click', (e) => {
+                                    document.querySelector('#modalJuego').remove();
+                                    return false;
+                                    });
+                
+                                    document.body.append(modalJuego);
+                                    modalJuego.append(cerrarModal, divModal);
+                
+                                    let img = document.createElement('img');
+                                    img.src = json.background_image;
+                                    img.className = 'imgModal';
+                
+                                    let h5Titulo = document.createElement('h5');
+                                    h5Titulo.className = 'card-title my-5 title';
+                                    h5Titulo.innerHTML = json.name;
+                
+                                    let pDescripcion = document.createElement('p');
+                                    pDescripcion.innerHTML = json.description;
+                                    pDescripcion.className = 'my-4';
+                
+                                    let divInfo = document.createElement('div');
+                                    divInfo.className = 'divInfo';
+                
+                                    let ul1 = document.createElement('ul');
+                                    ul1.className = 'd-flex justify-content-between info';
+                                    let li1 = document.createElement('li');
+                                    li1.innerHTML = `<span>Genre</span> ${json.genres[0].name}`;
+                                    let li2 = document.createElement('li');
+                                    li2.innerHTML = `<span>Release date</span> ${json.released}`;
+                                    ul1.append(li1, li2);
+                
+                                    let ul2 = document.createElement('ul');
+                                    ul2.className = 'd-flex justify-content-between info';
+                                    let li3 = document.createElement('li');
+                                    li3.innerHTML = `<span>Publisher</span> ${json.publishers[0].name}`;
+                                    let li4 = document.createElement('li');
+                                    li4.innerHTML = `<span>Metascore</span> <span>${json.metacritic}</span>`;
+                                    ul2.append(li3, li4);
+                
+                                    let divPlataformas = document.createElement('div');
+                                    divPlataformas.className = 'divPlataformas';
+                                    divPlataformas.innerHTML = '<p>Platforms</p';
+                                    for (let items of json.platforms) {
+                                        let span = document.createElement('span');
+                                        span.innerHTML = `${items.platform.name} `;  
+                                        divPlataformas.append(span);                     
+                                    }
+                                    
+                                    divInfo.append(ul1, ul2, divPlataformas);
+                
+                                    let divBtn = document.createElement('div');
+                                    divBtn.className = 'd-flex divBtn';
+                                    let button1 = document.createElement('button');
+                                    button1.innerHTML = 'Cerrar';
+                                    button1.className = 'btn button1 m-3';
+                                    button1.addEventListener('click', (e) => {
+                                        document.querySelector('#modalJuego').remove();
+                                        return false;
+                                        });
+                
+                                    let button2 = document.createElement('button');
+                                    button2.innerHTML = 'Me gusta';
+                                    button2.className = 'btn button2 m-3';
+                                    divBtn.append(button1, button2)
+                
+                                    divModal.append(h5Titulo, img, pDescripcion, divInfo, divBtn);
+                                })  
+                        })
+
                             let h5Titulo = document.createElement('h5');
                             h5Titulo.className = 'card-title';
                             h5Titulo.innerHTML = json.name;
@@ -76,13 +170,9 @@ const mostrarFavoritos = () => {
                             divFavorito.append(checkFavorito, labelFavorito);
                         
                             a.append(h5Titulo);
-                            divCard3.append(a, divFavorito);
-                            
-
+                            divCard3.append(a, divFavorito);                            
                             });
-                            
         });
-        
     };
 }
 
