@@ -24,7 +24,7 @@ const listNovedades = () => {
 
         let imgNovedades = document.createElement('img');
         imgNovedades.className = 'imgNovedades img-fluid';
-        imgNovedades.src = novedad.image;
+        imgNovedades.src = novedad.imagen;
         imgNovedades.alt = novedad.titulo;
         divCard3.append(imgNovedades)
 
