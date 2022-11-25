@@ -153,10 +153,7 @@ const cardResultado = (json) => {
                         return false;
                         });
 
-                    let button2 = document.createElement('button');
-                    button2.innerHTML = 'Me gusta';
-                    button2.className = 'btn button2 m-3';
-                    divBtn.append(button1, button2)
+                    divBtn.append(button1)
 
                     divModal.append(h5Titulo, img, pDescripcion, divInfo, divBtn);
                 })  

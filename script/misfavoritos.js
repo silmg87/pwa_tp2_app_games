@@ -22,8 +22,7 @@ const mostrarFavoritos = () => {
 
         let divResultado = document.createElement('div');
         divResultado.id = 'resultado';
-        divResultado.className = 'd-flex flex-wrap justify-content-center align-items-center'; //'container mt-5 py-5';
-        
+        divResultado.className = 'd-flex flex-wrap justify-content-center align-items-center mt-5';
         let main = document.getElementById('main');
         main.append(divResultado);
 
@@ -140,10 +139,7 @@ const mostrarFavoritos = () => {
                                         return false;
                                         });
                 
-                                    let button2 = document.createElement('button');
-                                    button2.innerHTML = 'Me gusta';
-                                    button2.className = 'btn button2 m-3';
-                                    divBtn.append(button1, button2)
+                                    divBtn.append(button1)
                 
                                     divModal.append(h5Titulo, img, pDescripcion, divInfo, divBtn);
                                 })  

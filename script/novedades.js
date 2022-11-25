@@ -24,8 +24,8 @@ const listNovedades = () => {
 
         let imgNovedades = document.createElement('img');
         imgNovedades.className = 'imgNovedades img-fluid';
-        imgNovedades.src = '../image/novedades1.jpg'; //novedad.image;
-        imgNovedades.atl = novedad.titulo;
+        imgNovedades.src = novedad.image;
+        imgNovedades.alt = novedad.titulo;
         divCard3.append(imgNovedades)
 
         let divCard4 = document.createElement('div');
@@ -42,17 +42,22 @@ const listNovedades = () => {
 
         let text1 = document.createElement('p');
         text1.className = 'card-text';
-        text1.innerHTML = novedad.texto
+        text1.innerHTML = novedad.subtitulo;
         divCard5.append(text1)
 
         let text2 = document.createElement('p');
         text2.className = 'card-text';
-        divCard5.append(text2)
+        text2.innerHTML = novedad.descripcion;
+        divCard5.append(text2);
+
+        let text3 = document.createElement('p');
+        text3.className = 'card-text';
+        divCard5.append(text3);
 
         let small = document.createElement('small');
         small.className = 'text-muted';
-        small.innerHTML = novedad.descripcion
-        text2.append(small);
+        small.innerHTML = novedad.fecha;
+        text3.append(small);
     });
 }
 listNovedades();
