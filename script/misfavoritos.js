@@ -177,3 +177,7 @@ const mostrarFavoritos = () => {
 }
 
 mostrarFavoritos();
+
+verificarFavoritos();
+
+estadoFavoritos(e);
