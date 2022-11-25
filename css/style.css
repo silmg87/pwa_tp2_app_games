@@ -399,6 +399,28 @@ input[type="checkbox"]:checked + label {
     background-size: cover;
 }
 
+article {
+    margin-top: 5em;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+article .card-body {
+    max-width: 850px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 0 0 .75em .75em;
+}
+
+article .card-title {
+    color: var(--color-violeta);
+}
+
+.imgNovedades {
+    width: 850px;
+    height: 100%;
+    border-radius: .75em .75em 0 0;
+}
+
 /* Botón App Install */
 #installBtn {
     display: none;

@@ -15,6 +15,13 @@ window.onload = function() {
 }
 
 
+// SECCION NOVEDADES
+fetch('https://final-programacion-1.000webhostapp.com/novedades.php')
+    .then(resp => resp.json())
+    .then(data => { localStorage.setItem('novedades', JSON.stringify(data))
+})
+
+
 // VALIDACION  
 const validacion = () => {
     if (!inputBusqueda) {
@@ -179,12 +186,15 @@ const cardResultado = (json) => {
     
     let main = document.getElementById('main');
     main.append(divResultado);
+
+    verificarFavoritos();
 }
 
 
 // EVENTO CLICK DEL BOTON BUSCAR
 btn.addEventListener('click', event => {
     event.preventDefault();
+
 
     let portada = document.getElementById('portada-inicio');
     portada.style.height = '50vh';
@@ -220,59 +230,61 @@ btn.addEventListener('click', event => {
 
 
 // LOCALSTORAGE
-let ids;
-let recuperarLocalStorage;
-
 const estadoFavoritos = (e) => {
     let estado = e.target.checked;
     let id = e.target.id;
-    let juego = e.target.name;
+    let titulo = e.target.name;
 
-    if (estado === true){
-        if (!localStorage.getItem('favoritos')) {
-            ids = [];
-        } else {
-            ids = JSON.parse(localStorage.favoritos); 
+    let ids = [];
+    let data = {id, titulo};
+
+    if (estado === true) {
+
+        if (localStorage.getItem('favoritos')) {
+            ids = JSON.parse(localStorage.favoritos);
+            ids.push(data);
+            localStorage.setItem('favoritos', JSON.stringify(ids));
         }
-        
-        let data = [id, juego];
-        ids.push(data);
+
+        if (!localStorage.getItem('favoritos')) {
+            ids.push(data);
+            localStorage.setItem('favoritos', JSON.stringify(ids));
+        }
+    }
+
+    if (estado === false) {
+        localStorage.getItem('favoritos')
+        ids = JSON.parse(localStorage.favoritos);
+        let found = ids.find(ids => ids.id == data.id)
+        console.log(found)
         localStorage.setItem('favoritos', JSON.stringify(ids));
-        recuperarLocalStorage = JSON.parse(localStorage.getItem('favoritos'));
-
-    } else {
-        console.log('nouu');  //eliminarFavoritos(); 
-        // ids = localStorage.getItem('favoritos');
-        // ids = JSON.parse(ids);
-        // if (id in ids) {
-        //     delete ids[id];
-        // }
-        // // ids.splice([id], 1);
-        // // localStorage.setItem('favoritos', JSON.stringify(ids));
-
-        // ids = JSON.stringify(ids);
-        // localStorage.setItem('favoritos', ids);
-
-        // if(JSON.parse(localStorage.getItem('favoritos')).length == 0) {
-        //     localStorage.removeItem("favoritos");
-        // }
     }
 }
 
-// const mostrarFavoritos = () => {
-//     cardResultado(recuperarLocalStorage = JSON.parse(localStorage.favoritos));
-// }
+
+// FAVORITOS 
+const verificarFavoritos = () => {
+    let found;
+    let favoritos = JSON.parse(localStorage.favoritos)
+    let inputs = document.querySelectorAll('input')
+        inputs.forEach(input => {
+            found = favoritos.find(favorito => favorito.id == input.id);
+            if (found != undefined) {
+                input.checked = true;
+            }
+        })
+}
 
 
 // ONLINE Y OFFLINE APP
 window.addEventListener('offline', event => {
     console.log('Web App sin cconexión', event);
+    let div = document.getElementById('notificacion')
+    div.style.display = "block";
 });
 
 window.addEventListener('online', event => {
     console.log('Web App conectada', event);
 });
 
-if (!navigator.onLine) {
-    console.log('Web App sin conexión al cargar');
-}
+
