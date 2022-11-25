@@ -3,7 +3,7 @@ if (!localStorage.favoritos) {
     console.log('No existen favoritos')
 
     let div = document.createElement('div')
-        div.classList = 'text-center mensaje'
+        div.classList = 'text-center mensaje mt-5'
     let p = document.createElement('p')
         p.innerHTML = `Aun no tienes juegos favoritos, <br> ¿Que esperas para añadir uno?`;
 
