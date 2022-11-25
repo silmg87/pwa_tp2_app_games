@@ -1,3 +1,8 @@
+// DECLARACION DE VARIABLES
+const APIKEY = '38d5e808c5ec460db70f8cb787f5d0ee';
+//const APIKEY = '71388fa6bc1242419e2f8377bf447483';
+
+
 // EJECUCION DE LA FUNCION mostrarFavoritos
 if (JSON.parse(localStorage.getItem('favoritos')).length == 0) {
     localStorage.removeItem('favoritos')
