@@ -1,29 +1,21 @@
-// DECLARACION DE VARIABLES
-const APIKEY = '38d5e808c5ec460db70f8cb787f5d0ee';
-//const APIKEY = '71388fa6bc1242419e2f8377bf447483';
-
-
 // EJECUCION DE LA FUNCION mostrarFavoritos
+if (!localStorage.favoritos) {
+    console.log('No existen favoritos')
+
+    let div = document.createElement('div')
+        div.classList = 'text-center mensaje'
+    let p = document.createElement('p')
+        p.innerHTML = `Aun no tienes juegos favoritos, <br> ¿Que esperas para añadir uno?`;
+
+    document.querySelector('main').append(div)
+    div.append(p)
+}
+
 if (JSON.parse(localStorage.getItem('favoritos')).length == 0) {
     localStorage.removeItem('favoritos')
 }
 
 const mostrarFavoritos = () => {
-
-    if (!localStorage.favoritos) {
-        console.log('No existen favoritos')
-
-        let div = document.createElement('div')
-            div.classList = 'text-center w-100 mensaje'
-            div.style.paddingTop = '20vh'
-        let p = document.createElement('p')
-            p.innerHTML = `Aun no tienes juegos favoritos, <br> ¿Que esperas para añadir uno?`;
-            // p.style.fontSize = '3em'
-            // p.style.lineHeight = '1.4em'
-
-        document.querySelector('main').append(div)
-        div.append(p)
-    }
 
     if (localStorage.favoritos) {
         console.log('Existen favoritos')
@@ -166,10 +158,11 @@ const mostrarFavoritos = () => {
                             labelFavorito.htmlFor = json.id;
                             let checkFavorito = document.createElement('input');
                             checkFavorito.type = 'checkbox';  
+                            checkFavorito.checked = true;
                             checkFavorito.id = json.id;
                             checkFavorito.name = json.name;
                             checkFavorito.addEventListener('change', e => {
-                                estadoFavoritos(e);
+                                estado(e);
                             }) 
                     
                             divFavorito.append(checkFavorito, labelFavorito);
@@ -181,8 +174,37 @@ const mostrarFavoritos = () => {
     };
 }
 
+const estado = (e) => {
+    let estado = e.target.checked;
+    let id = e.target.id;
+    let titulo = e.target.name;
+
+    let ids = [];
+    let data = {id, titulo};
+
+    if (estado === true) {
+
+        if (localStorage.getItem('favoritos')) {
+            ids = JSON.parse(localStorage.favoritos);
+            ids.push(data);
+            localStorage.setItem('favoritos', JSON.stringify(ids));
+        }
+
+        if (!localStorage.getItem('favoritos')) {
+            ids.push(data);
+            localStorage.setItem('favoritos', JSON.stringify(ids));
+        }
+    }
+
+    if (estado === false) {
+        let found;
+        let index;
+        let favoritos = JSON.parse(localStorage.favoritos);
+        found = favoritos.find(favorito => favorito.id == data.id);            
+        index = favoritos.indexOf(found);
+        favoritos.splice(index, 1);
+        localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    }
+}
+
 mostrarFavoritos();
-
-verificarFavoritos();
-
-estadoFavoritos(e);
